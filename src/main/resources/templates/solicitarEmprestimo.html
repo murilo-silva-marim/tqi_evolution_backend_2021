@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Portal Cliente</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body style="background-color: #508bfc;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Portal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="" th:href="@{/}">Início</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="" th:href="@{/solicitarEmprestimo}">Solicitar Empréstimo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="" th:href="@{/emprestimos}">Meus Empréstimos</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    [[${#request.remoteUser}]]
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+                        <h2>Solicitação</h2>
+                        <form th:action="@{/solicitarEmprestimo}" th:object="${emprestimo}" method="POST">
+                            <div class="form-group">
+                                <label for="valor">Valor:</label>
+                                <input type="text" th:field="*{valor}" id="valor" class="form-control"
+                                       data-inputmask="'alias': 'numeric', 'groupSeparator': '.', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': 'R$ ', 'placeholder': '0', 'radixPoint': ','"
+                                >
+                                <p th:if="${#fields.hasErrors('valor')}" th:errors="*{valor}" class="alert alert-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantidade_parcelas">Quantidade de parcelas:</label>
+                                <input id="quantidade_parcelas" type="text" th:field="*{quantidade_parcelas}" placeholder="Quantidade de parcelas" class="form-control"
+                                       data-inputmask="'alias': 'integer', 'placeholder': '0', 'min': '0', 'groupSeparator': '.', 'autoGroup': true"
+                                >
+                                <p th:if="${#fields.hasErrors('quantidade_parcelas')}" th:errors="*{quantidade_parcelas}" class="alert alert-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="primeira_parcela">Primeira parcela:</label>
+                                <input id="primeira_parcela" type="date" th:field="*{primeira_parcela}" placeholder="Primeira Parcela" class="form-control">
+                                <p th:if="${#fields.hasErrors('primeira_parcela')}" th:errors="*{primeira_parcela}" class="alert alert-danger"></p>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/inputmask/3.3.11/dist/min/jquery.inputmask.bundle.min.js}"></script>
+
+<script>
+    $(":input").inputmask();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

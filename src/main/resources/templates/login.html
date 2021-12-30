@@ -1,0 +1,50 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+
+    <title>Login</title>
+</head>
+
+<body class="text-center" style="background-color: #508bfc;">
+<form th:action="@{/login}" method="post">
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+
+                            <h3 class="mb-5">Entre</h3>
+
+                            <div class="form-outline mb-4">
+                                <input type="email" id="typeEmailX-2" class="form-control form-control-lg" name="username" />
+                                <label class="form-label" for="typeEmailX-2">E-mail</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="password" id="typePasswordX-2" class="form-control form-control-lg" name="password" />
+                                <label class="form-label" for="typePasswordX-2">Senha</label>
+                            </div>
+
+                            <div class="form-outline mb-4" th:if="${param.error}">
+                                <p class="alert alert-danger">Senha ou E-mail inválidos</p>
+                            </div>
+
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Entrar</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+</body>
+
+</html>

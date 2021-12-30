@@ -1,0 +1,4 @@
+docker run --name aplicacao --rm -d -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=123 -e POSTGRES_DB=avaliacao postgres
+docker cp tabelas.sql aplicacao:/
+docker exec -it aplicacao bash
+psql -h localhost -U admin avaliacao -f tabelas.sql
