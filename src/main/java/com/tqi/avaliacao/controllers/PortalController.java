@@ -1,5 +1,11 @@
-package com.tqi.avaliacao;
+package com.tqi.avaliacao.controllers;
 
+import com.tqi.avaliacao.custom.editors.CustomFloatEditor;
+import com.tqi.avaliacao.custom.editors.CustomIntegerEditor;
+import com.tqi.avaliacao.models.Cliente;
+import com.tqi.avaliacao.models.Emprestimo;
+import com.tqi.avaliacao.services.ClientesService;
+import com.tqi.avaliacao.services.EmprestimosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,18 +16,18 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 @Controller
 public class PortalController {
 
     @Autowired
-    private ClientesRepository clientesRepository;
+    private ClientesService clientesService;
 
     @Autowired
-    private EmprestimosRepository emprestimosRepository;
+    private EmprestimosService emprestimosService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/login")
     public String login(){
@@ -45,19 +51,31 @@ public class PortalController {
             return "solicitarEmprestimo";
         }
         String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
-        Cliente cliente = clientesRepository.findByEmail(currentPrincipalName);
-        emprestimo.setCliente(cliente);
-        cliente.getEmprestimos().add(emprestimo);
-        clientesRepository.save(cliente);
+        Optional<Cliente> cliente = clientesService.findByEmail(currentPrincipalName);
+        emprestimo.setCliente(cliente.get());
+        cliente.get().getEmprestimos().add(emprestimo);
+        clientesService.save(cliente.get());
         return "redirect:/";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/emprestimos")
     public String emprestimos(Model model){
         String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
-        Cliente cliente = clientesRepository.findByEmail(currentPrincipalName);
-        model.addAttribute("listaEmprestimos", emprestimosRepository.findByCliente(cliente));
+        Optional<Cliente> cliente = clientesService.findByEmail(currentPrincipalName);
+        model.addAttribute("listaEmprestimos", emprestimosService.findByCliente(cliente.get()));
         return "emprestimos";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/emprestimos/{id}")
+    public String verEmprestimo(@PathVariable Integer id, Model model){
+        Optional<Emprestimo> emprestimo = emprestimosService.findById(id);
+        String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(emprestimo.isPresent() && emprestimo.get().getCliente().getEmail().equals(currentPrincipalName)){
+            model.addAttribute("emprestimo", emprestimo.get());
+            return "detalhamentoEmprestimo";
+        }else{
+            return "404";
+        }
     }
 
     @InitBinder

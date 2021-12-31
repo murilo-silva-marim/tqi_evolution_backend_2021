@@ -1,5 +1,7 @@
-package com.tqi.avaliacao;
+package com.tqi.avaliacao.repositories;
 
+import com.tqi.avaliacao.models.Cliente;
+import com.tqi.avaliacao.models.Emprestimo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

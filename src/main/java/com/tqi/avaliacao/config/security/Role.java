@@ -1,4 +1,4 @@
-package com.tqi.avaliacao;
+package com.tqi.avaliacao.config.security;
 
 public enum Role {
 

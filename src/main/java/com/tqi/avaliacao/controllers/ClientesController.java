@@ -1,5 +1,8 @@
-package com.tqi.avaliacao;
+package com.tqi.avaliacao.controllers;
 
+import com.tqi.avaliacao.config.security.Role;
+import com.tqi.avaliacao.models.Cliente;
+import com.tqi.avaliacao.services.ClientesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,34 +21,48 @@ import java.util.Optional;
 @RequestMapping("/clientes")
 public class ClientesController {
 
-    private ClientesRepository repository;
+    @Autowired
+    private ClientesService clientesService;
 
     @Autowired
     private PasswordEncoder encoder;
 
-    public ClientesController(ClientesRepository repository) {
-        this.repository = repository;
+    public ClientesController() {
+
     }
 
     @GetMapping
     public List<Cliente> clientes(){
-        return repository.findAll();
+
+        return clientesService.findAll();
+
     }
 
     @PostMapping
     public ResponseEntity<Cliente> cadastrar(@RequestBody @Valid Cliente cliente){
-        System.out.println(cliente + "----------------------------------------------------------------------------");
         cliente.setSenha(encoder.encode(cliente.getSenha()));
         cliente.setRole(Role.USER.getNome());
-        Cliente clienteSalvo = repository.save(cliente);
+        Cliente clienteSalvo = clientesService.save(cliente);
         return new ResponseEntity<Cliente>(clienteSalvo, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Cliente> cliente(@PathVariable(value = "id") Integer id){
 
-        Optional<Cliente> optional = repository.findById(id);
+        Optional<Cliente> optional = clientesService.findById(id);
         if(optional.isPresent()){
+            return ResponseEntity.ok().body(optional.get());
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Cliente> deletarCliente(@PathVariable(value = "id") Integer id){
+        Optional<Cliente> optional = clientesService.findById(id);
+        if(optional.isPresent()){
+            clientesService.deleteById(id);
             return ResponseEntity.ok().body(optional.get());
         }else{
             return ResponseEntity.notFound().build();

@@ -17,10 +17,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="" th:href="@{/}">Início</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="" th:href="@{/solicitarEmprestimo}">Solicitar Empréstimo</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="" th:href="@{/emprestimos}">Meus Empréstimos</a>
             </li>
         </ul>
@@ -42,32 +42,15 @@
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
-                        <h2>Solicitação</h2>
+                        <h2>Detalhamento do Empréstimo</h2>
                         <hr>
                         <br>
-                        <form th:action="@{/solicitarEmprestimo}" th:object="${emprestimo}" method="POST">
-                            <div class="form-group">
-                                <label for="valor">Valor:</label>
-                                <input type="text" th:field="*{valor}" id="valor" class="form-control"
-                                       data-inputmask="'alias': 'numeric', 'groupSeparator': '.', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': 'R$ ', 'placeholder': '0', 'radixPoint': ','"
-                                >
-                                <p th:if="${#fields.hasErrors('valor')}" th:errors="*{valor}" class="alert alert-danger"></p>
-                            </div>
-                            <div class="form-group">
-                                <label for="quantidade_parcelas">Quantidade de parcelas:</label>
-                                <input id="quantidade_parcelas" type="text" th:field="*{quantidade_parcelas}" placeholder="Quantidade de parcelas" class="form-control"
-                                       data-inputmask="'alias': 'integer', 'placeholder': '0', 'min': '0', 'groupSeparator': '.', 'autoGroup': true"
-                                >
-                                <p th:if="${#fields.hasErrors('quantidade_parcelas')}" th:errors="*{quantidade_parcelas}" class="alert alert-danger"></p>
-                            </div>
-                            <div class="form-group">
-                                <label for="primeira_parcela">Primeira parcela:</label>
-                                <input id="primeira_parcela" type="date" th:field="*{primeira_parcela}" placeholder="Primeira Parcela" class="form-control">
-                                <p th:if="${#fields.hasErrors('primeira_parcela')}" th:errors="*{primeira_parcela}" class="alert alert-danger"></p>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Salvar</button>
-                        </form>
+                        <h6 th:text="|Código: ${emprestimo.id}|"></h6>
+                        <h6 th:text="|Valor: ${#numbers.formatDecimal(emprestimo.valor,1,'POINT',2,'COMMA')}|"></h6>
+                        <h6 th:text="|Quantidade: ${emprestimo.quantidade_parcelas}|"></h6>
+                        <h6 th:text="|Primeira parcela: ${#dates.format(emprestimo.primeira_parcela, 'dd/MM/yyyy')}|"></h6>
+                        <h6 th:text="|E-mail: ${emprestimo.cliente.email}|"></h6>
+                        <h6 th:text="'Renda: ' + ( (${emprestimo.cliente.renda != null}) ? (${#numbers.formatDecimal(emprestimo.cliente.renda,1,'POINT',2,'COMMA')}) : '')"></h6>
                     </div>
                 </div>
             </div>
@@ -78,11 +61,6 @@
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
-<script th:src="@{/webjars/inputmask/3.3.11/dist/min/jquery.inputmask.bundle.min.js}"></script>
-
-<script>
-    $(":input").inputmask();
-</script>
 
 </body>
 </html>

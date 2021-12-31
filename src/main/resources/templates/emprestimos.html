@@ -46,6 +46,7 @@
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
                         <h2>Meus Empréstimos</h2>
+                        <br>
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -56,12 +57,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="emprestimo: ${listaEmprestimos}">
-                                <td th:text="${emprestimo.id}"></td>
-                                <td th:text="${#numbers.formatDecimal(emprestimo.valor,1,'POINT',2,'COMMA')}"></td>
-                                <td th:text="${emprestimo.quantidade_parcelas}"></td>
-                                <td><a th:href="@{/emprestimos/{emprestimoId}(emprestimoId=${emprestimo.id})}" class="btn btn-primary">Visualizar</a></td>
-                            </tr>
+                                <tr th:each="emprestimo: ${listaEmprestimos}">
+                                    <td th:text="${emprestimo.id}"></td>
+                                    <td th:text="${#numbers.formatDecimal(emprestimo.valor,1,'POINT',2,'COMMA')}"></td>
+                                    <td th:text="${emprestimo.quantidade_parcelas}"></td>
+                                    <td><a th:href="@{/emprestimos/{emprestimoId}(emprestimoId=${emprestimo.id})}" class="btn btn-primary">Visualizar</a></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

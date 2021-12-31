@@ -1,6 +1,7 @@
-package com.tqi.avaliacao;
+package com.tqi.avaliacao.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.tqi.avaliacao.custom.validations.PrimeiraParcela;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -26,7 +27,7 @@ public class Emprestimo {
     @Max(value = 60L)
     private Integer quantidade_parcelas;
 
-    @PrimeiraParcelaValid
+    @PrimeiraParcela
     private Date primeira_parcela;
 
     @JsonBackReference

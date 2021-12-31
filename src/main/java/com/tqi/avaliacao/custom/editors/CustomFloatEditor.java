@@ -1,4 +1,4 @@
-package com.tqi.avaliacao;
+package com.tqi.avaliacao.custom.editors;
 
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 
@@ -9,7 +9,7 @@ public class CustomFloatEditor extends PropertyEditorSupport {
 
     @Override
     public void setAsText(String text){
-        text = text.replaceAll("[R$.]+", "");
+        text = text.replaceAll("[^\\d,]+", "");
         text = text.replaceAll("[,]+", ".");
         if(!text.isEmpty()){
             Float c = Float.parseFloat(text);

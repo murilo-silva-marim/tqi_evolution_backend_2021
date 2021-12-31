@@ -1,13 +1,13 @@
-package com.tqi.avaliacao;
+package com.tqi.avaliacao.custom.validations;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Calendar;
 import java.util.Date;
 
-public class PrimeiraParcelaValidator implements ConstraintValidator<PrimeiraParcelaValid, Date> {
+public class PrimeiraParcelaValidator implements ConstraintValidator<PrimeiraParcela, Date> {
     @Override
-    public void initialize(PrimeiraParcelaValid constraintAnnotation) {
+    public void initialize(PrimeiraParcela constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 

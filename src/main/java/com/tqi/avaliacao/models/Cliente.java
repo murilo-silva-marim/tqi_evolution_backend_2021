@@ -1,6 +1,7 @@
-package com.tqi.avaliacao;
+package com.tqi.avaliacao.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.tqi.avaliacao.custom.validations.EmailUnico;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;

@@ -1,4 +1,4 @@
-package com.tqi.avaliacao;
+package com.tqi.avaliacao.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
