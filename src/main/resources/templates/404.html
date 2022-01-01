@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Página não encontrada</title>
@@ -403,6 +403,7 @@ body {
     <div class="error__title">404</div>
     <div class="error__subtitle">Vish...</div>
     <div class="error__description">Parece que o nosso desenvolvedor dormiu</div>
+    <a th:href="@{/}" class="error_button error_button--active">Página inicial</a>
 </div>
 
 <div class="astronaut">

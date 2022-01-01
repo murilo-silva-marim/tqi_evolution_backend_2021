@@ -6,7 +6,7 @@ public class CustomIntegerEditor extends PropertyEditorSupport {
 
     @Override
     public void setAsText(String text){
-        text = text.replaceAll("[.]+", "");
+        text = text.replaceAll("[\\D]+", "");
         if(!text.isEmpty()){
             Integer c = Integer.parseInt(text);
             this.setValue(c);

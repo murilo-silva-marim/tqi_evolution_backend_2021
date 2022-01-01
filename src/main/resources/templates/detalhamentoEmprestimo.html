@@ -51,6 +51,8 @@
                         <h6 th:text="|Primeira parcela: ${#dates.format(emprestimo.primeira_parcela, 'dd/MM/yyyy')}|"></h6>
                         <h6 th:text="|E-mail: ${emprestimo.cliente.email}|"></h6>
                         <h6 th:text="'Renda: ' + ( (${emprestimo.cliente.renda != null}) ? (${#numbers.formatDecimal(emprestimo.cliente.renda,1,'POINT',2,'COMMA')}) : '')"></h6>
+                        <p class="alert alert-success" th:if="${fromSolicitacao != null}">Dados salvos com sucesso</p>
+                        <a th:href="@{/emprestimos}">Retornar para os meus empréstimos</a>
                     </div>
                 </div>
             </div>

@@ -56,7 +56,7 @@
                             <div class="form-group">
                                 <label for="quantidade_parcelas">Quantidade de parcelas:</label>
                                 <input id="quantidade_parcelas" type="text" th:field="*{quantidade_parcelas}" placeholder="Quantidade de parcelas" class="form-control"
-                                       data-inputmask="'alias': 'integer', 'placeholder': '0', 'min': '0', 'groupSeparator': '.', 'autoGroup': true"
+                                       data-inputmask="'alias': 'integer', 'placeholder': '0', 'min': '0', 'max': '2147483647', 'groupSeparator': '.', 'autoGroup': true"
                                 >
                                 <p th:if="${#fields.hasErrors('quantidade_parcelas')}" th:errors="*{quantidade_parcelas}" class="alert alert-danger"></p>
                             </div>

@@ -27,4 +27,8 @@ public class EmprestimosService {
         return emprestimosRepository.findById(id);
     }
 
+    public Emprestimo save(Emprestimo emprestimo){
+        return emprestimosRepository.save(emprestimo);
+    }
+
 }

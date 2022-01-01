@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
@@ -46,16 +48,17 @@ public class PortalController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/solicitarEmprestimo")
-    public String salvarEmprestimo(@ModelAttribute("emprestimo") @Valid Emprestimo emprestimo, Errors errors){
+    public String salvarEmprestimo(@ModelAttribute("emprestimo") @Valid Emprestimo emprestimo, Errors errors, Model model){
         if(errors.hasErrors()){
             return "solicitarEmprestimo";
         }
         String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<Cliente> cliente = clientesService.findByEmail(currentPrincipalName);
         emprestimo.setCliente(cliente.get());
-        cliente.get().getEmprestimos().add(emprestimo);
-        clientesService.save(cliente.get());
-        return "redirect:/";
+        Emprestimo emprestimoSalvo = emprestimosService.save(emprestimo);
+        model.addAttribute("emprestimo", emprestimoSalvo);
+        model.addAttribute("fromSolicitacao", true);
+        return "detalhamentoEmprestimo";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/emprestimos")
