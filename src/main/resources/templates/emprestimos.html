@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Empréstimos</title>
+    <title>Portal TQI</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
     <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
     <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
@@ -10,7 +10,7 @@
 </head>
 <body style="background-color: #508bfc;">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Portal</a>
+    <a th:href="@{/}" class="navbar-brand">Portal <img th:src="@{/tqi_logo.png}" style="width: 50px;"/></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
         <span class="navbar-toggler-icon"></span>
     </button>

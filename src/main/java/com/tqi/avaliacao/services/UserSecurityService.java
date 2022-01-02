@@ -1,4 +1,4 @@
-package com.tqi.avaliacao.config.security;
+package com.tqi.avaliacao.services;
 
 import com.tqi.avaliacao.models.Cliente;
 import com.tqi.avaliacao.services.ClientesService;
@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service("userDetailsService")
-public class UserDetailsServiceImplementation implements UserDetailsService {
+public class UserSecurityService implements UserDetailsService {
 
     @Autowired
     private ClientesService clientesService;

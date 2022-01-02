@@ -32,23 +32,23 @@ public class PortalController {
     private EmprestimosService emprestimosService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/login")
-    public String login(){
+    public String getLoginPage(){
         return "login";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
-    public String index(){
+    public String getIndexPage(){
         return "index";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/solicitarEmprestimo")
-    public String solicitarEmprestimo(@ModelAttribute("emprestimo") Emprestimo emprestimo){
+    public String getEmprestimoForm(@ModelAttribute("emprestimo") Emprestimo emprestimo){
 
         return "solicitarEmprestimo";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/solicitarEmprestimo")
-    public String salvarEmprestimo(@ModelAttribute("emprestimo") @Valid Emprestimo emprestimo, Errors errors, Model model){
+    public String createEmprestimo(@ModelAttribute("emprestimo") @Valid Emprestimo emprestimo, Errors errors, Model model){
         if(errors.hasErrors()){
             return "solicitarEmprestimo";
         }
@@ -62,7 +62,7 @@ public class PortalController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/emprestimos")
-    public String emprestimos(Model model){
+    public String getUserEmprestimos(Model model){
         String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<Cliente> cliente = clientesService.findByEmail(currentPrincipalName);
         model.addAttribute("listaEmprestimos", emprestimosService.findByCliente(cliente.get()));
@@ -70,7 +70,7 @@ public class PortalController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/emprestimos/{id}")
-    public String verEmprestimo(@PathVariable Integer id, Model model){
+    public String getUserEmprestimo(@PathVariable Integer id, Model model){
         Optional<Emprestimo> emprestimo = emprestimosService.findById(id);
         String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
         if(emprestimo.isPresent() && emprestimo.get().getCliente().getEmail().equals(currentPrincipalName)){
