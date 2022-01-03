@@ -47,7 +47,7 @@
                         <br>
                         <h6 th:text="|Código: ${emprestimo.id}|"></h6>
                         <h6 th:text="|Valor: ${#numbers.formatDecimal(emprestimo.valor,1,'POINT',2,'COMMA')}|"></h6>
-                        <h6 th:text="|Quantidade: ${emprestimo.quantidade_parcelas}|"></h6>
+                        <h6 th:text="|Quantidade de parcelas: ${emprestimo.quantidade_parcelas}|"></h6>
                         <h6 th:text="|Primeira parcela: ${#dates.format(emprestimo.primeira_parcela, 'dd/MM/yyyy')}|"></h6>
                         <h6 th:text="|E-mail: ${emprestimo.cliente.email}|"></h6>
                         <h6 th:text="'Renda: ' + ( (${emprestimo.cliente.renda != null}) ? (${#numbers.formatDecimal(emprestimo.cliente.renda,1,'POINT',2,'COMMA')}) : '')"></h6>

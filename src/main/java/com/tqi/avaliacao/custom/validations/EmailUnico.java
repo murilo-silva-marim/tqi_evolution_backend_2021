@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target( { ElementType.METHOD, ElementType.FIELD })
+@Target(ElementType.TYPE)
 @Constraint(validatedBy = EmailUnicoValidator.class)
 public @interface EmailUnico {
     String message() default "E-mail já cadastrado";

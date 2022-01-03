@@ -13,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "clientes")
+@EmailUnico
 public class Cliente {
 
     @Id
@@ -27,7 +28,6 @@ public class Cliente {
 
     @Email
     @NotBlank
-    @EmailUnico
     private String email;
 
     @CPF

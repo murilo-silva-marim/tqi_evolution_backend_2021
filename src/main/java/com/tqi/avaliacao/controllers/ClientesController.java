@@ -1,6 +1,7 @@
 package com.tqi.avaliacao.controllers;
 
 import com.tqi.avaliacao.config.security.Role;
+import com.tqi.avaliacao.dto.ClienteDto;
 import com.tqi.avaliacao.models.Cliente;
 import com.tqi.avaliacao.models.Emprestimo;
 import com.tqi.avaliacao.services.ClientesService;
@@ -30,28 +31,48 @@ public class ClientesController {
     }
 
     @GetMapping
-    public List<Cliente> getClientes(){
+    public List<ClienteDto> getClientes(){
 
-        return clientesService.findAll();
+        return ClienteDto.convert(clientesService.findAll());
 
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> createCliente(@RequestBody @Valid Cliente cliente){
+    public ResponseEntity<ClienteDto> createCliente(@RequestBody @Valid Cliente cliente){
         cliente.setSenha(encoder.encode(cliente.getSenha()));
         cliente.setRole(Role.USER.getNome());
         cliente.setEmprestimos(new ArrayList<>());
-        cliente.setId(null);
         Cliente clienteSalvo = clientesService.save(cliente);
-        return new ResponseEntity<Cliente>(clienteSalvo, HttpStatus.OK);
+        return new ResponseEntity<ClienteDto>(ClienteDto.convert(clienteSalvo), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ClienteDto> updateCliente(@PathVariable(value = "id") Integer id,
+                                                 @RequestBody @Valid Cliente clienteNovo){
+        Optional<Cliente> clienteAntigo = clientesService.findById(id);
+        if(clienteAntigo.isPresent()){
+            Cliente cliente = clienteAntigo.get();
+            cliente.setEmail(clienteNovo.getEmail());
+            cliente.setSenha(encoder.encode(clienteNovo.getSenha()));
+            cliente.setCpf(clienteNovo.getCpf());
+            cliente.setRg(clienteNovo.getRg());
+            cliente.setEndereco(clienteNovo.getEndereco());
+            cliente.setNome(cliente.getNome());
+            cliente.setRenda(clienteNovo.getRenda());
+            Cliente clienteSalvo = clientesService.save(cliente);
+            return ResponseEntity.ok().body(ClienteDto.convert(clienteSalvo));
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Cliente> getCliente(@PathVariable(value = "id") Integer id){
+    public ResponseEntity<ClienteDto> getCliente(@PathVariable(value = "id") Integer id){
 
         Optional<Cliente> optional = clientesService.findById(id);
         if(optional.isPresent()){
-            return ResponseEntity.ok().body(optional.get());
+            return ResponseEntity.ok().body(ClienteDto.convert(optional.get()));
         }else{
             return ResponseEntity.notFound().build();
         }
@@ -59,11 +80,11 @@ public class ClientesController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Cliente> deleteCliente(@PathVariable(value = "id") Integer id){
+    public ResponseEntity<ClienteDto> deleteCliente(@PathVariable(value = "id") Integer id){
         Optional<Cliente> optional = clientesService.findById(id);
         if(optional.isPresent()){
             clientesService.deleteById(id);
-            return ResponseEntity.ok().body(optional.get());
+            return ResponseEntity.noContent().build();
         }else{
             return ResponseEntity.notFound().build();
         }
@@ -76,9 +97,13 @@ public class ClientesController {
             MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
+            if (error.getCode().contains("EmailUnico")) {
+                errors.put("email", error.getDefaultMessage());
+            }else{
+                String fieldName = ((FieldError) error).getField();
+                String errorMessage = error.getDefaultMessage();
+                errors.put(fieldName, errorMessage);
+            }
         });
         return errors;
     }
