@@ -43,6 +43,21 @@ Use a criatividade! Você pode explorar aqui todos os seus conhecimentos, demons
 >Bora pra este desafio?
 
 ---
+
+## O Conceito
+A ideia inicial do projeto era apresentar uma solução completa, concisa e autossuficiente. E para atingir esse objetivo foi escolhido um modelo de arquitetura monolito.
+Esse modelo permite o controle da aplicação de forma centralizada, uma ótima abordagem para uma construção feita somente por uma pessoa que possui todo o controle.
+
+Como a meta é autossuficiência e demonstração de conhecimento, foi pensado em uma solução front-end já acoplada ao back-end. Onde
+teria uma API Rest para cadastro de clientes junto de um portal de acesso do cliente. Nesse portal ele teria as seguintes ações:
+- Solicitar Empréstimo
+- Checar seus empréstimos já solicitados
+
+E nesse portal teria uma interface de acesso ao usuário, utilizando Bootstrap para construção do design das páginas.
+
+Assim foi idealizado e então produzido, espero que gostem da minha solução!
+
+---
 ### Neste projeto foi utilizado as seguintes tecnologias:
 - #### Spring Framework
   - Para ter a simplicidade, poder e produtividade na criação e desenvolvimento de aplicações Java.

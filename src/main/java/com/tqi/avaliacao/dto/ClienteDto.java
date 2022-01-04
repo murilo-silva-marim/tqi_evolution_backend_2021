@@ -1,10 +1,16 @@
 package com.tqi.avaliacao.dto;
 
 import com.tqi.avaliacao.models.Cliente;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ClienteDto {
 
     private Integer id;
@@ -14,19 +20,6 @@ public class ClienteDto {
     private String rg;
     private String endereco;
     private Float renda;
-
-    public ClienteDto() {
-    }
-
-    public ClienteDto(Integer id, String nome, String email, String cpf, String rg, String endereco, Float renda) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.cpf = cpf;
-        this.rg = rg;
-        this.endereco = endereco;
-        this.renda = renda;
-    }
 
     public ClienteDto(Cliente cliente){
         this.id = cliente.getId();
@@ -46,31 +39,4 @@ public class ClienteDto {
         return new ClienteDto(clientes);
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getRg() {
-        return rg;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public Float getRenda() {
-        return renda;
-    }
 }
