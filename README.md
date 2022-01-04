@@ -46,14 +46,14 @@ Use a criatividade! Você pode explorar aqui todos os seus conhecimentos, demons
 
 ## O Conceito
 A ideia inicial do projeto era apresentar uma solução completa, concisa e autossuficiente. E para atingir esse objetivo foi escolhido um modelo de arquitetura monolito.
-Esse modelo permite o controle da aplicação de forma centralizada, uma ótima abordagem para uma construção feita somente por uma pessoa que possui todo o controle.
+Esse modelo permite o controle da aplicação de forma centralizada, uma ótima abordagem para uma construção feita somente por uma pessoa.
 
 Como a meta é autossuficiência e demonstração de conhecimento, foi pensado em uma solução front-end já acoplada ao back-end. Onde
 teria uma API Rest para cadastro de clientes junto de um portal de acesso do cliente. Nesse portal ele teria as seguintes ações:
 - Solicitar Empréstimo
 - Checar seus empréstimos já solicitados
 
-E nesse portal teria uma interface de acesso ao usuário, utilizando Bootstrap para construção do design das páginas.
+E nesse portal haveria uma interface de acesso ao usuário, utilizando Bootstrap para construção do design das páginas.
 
 Assim foi idealizado e então produzido, espero que gostem da minha solução!
 
@@ -70,12 +70,28 @@ Assim foi idealizado e então produzido, espero que gostem da minha solução!
 - #### PostgreSQL
   - Banco de dados relacional muito versátil, ótima opção para trabalhar com dados estruturados. Foi escolhido pela praticidade do SQL e pelo modelo do projeto ser parecido com sistemas CRM.  
 - #### Swagger
-  - Foi implementado como um auxílio à TQI para descoberta das rotas da aplicação.
+  - Foi implementado para documentação das rotas da minha aplicação, uma pequena ajuda a quem irá utilizá-la.
 - #### Thymeleaf
   - Motor de renderização de páginas server-side, utilizado para carregamento do HTML de forma dinâmica.  
 - #### Bootstrap 5
-  - Biblioteca utilizada para estilização e responsividade das páginas. 
+  - Biblioteca front-end utilizada para estilização e responsividade das páginas. 
 - #### Input Mask
-  - Biblioteca para formatação dos campos do formulário, aplicando máscaras nos inputs. 
+  - Biblioteca front-end para formatação dos campos do formulário, aplicando máscaras nos inputs. 
+
+---
+## Como rodar a aplicação
+Esse repositório acompanha um arquivo docker-compose, ele sobe um container docker com a imagem do Postgres
+e então executa um bash para criação das tabelas.
+
+Para subir o container em sistema Linux, execute o comando abaixo: 
+```
+docker-compose up -d
+```
+
+Após subida do container, execute:
+```
+mvn spring-boot:run
+```
+Experimente a aplicação!
 
 ---

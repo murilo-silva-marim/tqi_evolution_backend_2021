@@ -14,8 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
@@ -31,23 +29,23 @@ public class PortalController {
     @Autowired
     private EmprestimosService emprestimosService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/login")
+    @GetMapping(value = "/login")
     public String getLoginPage(){
         return "login";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/")
+    @GetMapping(value = "/")
     public String getIndexPage(){
         return "index";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/solicitarEmprestimo")
+    @GetMapping(value = "/solicitarEmprestimo")
     public String getEmprestimoForm(@ModelAttribute("emprestimo") Emprestimo emprestimo){
 
         return "solicitarEmprestimo";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/solicitarEmprestimo")
+    @PostMapping(value = "/solicitarEmprestimo")
     public String createEmprestimo(@ModelAttribute("emprestimo") @Valid Emprestimo emprestimo, Errors errors, Model model){
         if(errors.hasErrors()){
             return "solicitarEmprestimo";
@@ -61,7 +59,7 @@ public class PortalController {
         return "detalhamentoEmprestimo";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/emprestimos")
+    @GetMapping(value = "/emprestimos")
     public String getUserEmprestimos(Model model){
         String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<Cliente> cliente = clientesService.findByEmail(currentPrincipalName);
@@ -69,7 +67,7 @@ public class PortalController {
         return "emprestimos";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/emprestimos/{id}")
+    @GetMapping(value = "/emprestimos/{id}")
     public String getUserEmprestimo(@PathVariable Integer id, Model model){
         Optional<Emprestimo> emprestimo = emprestimosService.findById(id);
         String currentPrincipalName = SecurityContextHolder.getContext().getAuthentication().getName();
