@@ -45,11 +45,22 @@ Use a criatividade! Você pode explorar aqui todos os seus conhecimentos, demons
 ---
 ### Neste projeto foi utilizado as seguintes tecnologias:
 - #### Spring Framework
+  - Para ter a simplicidade, poder e produtividade na criação e desenvolvimento de aplicações Java.
 - #### Spring Security
+  - Para trazer a segurança para dentro da aplicação, interceptando as requisições e barrando o acesso quando for necessário.  
 - #### Hibernate Validator
+  - Dependência utilizada para validar os dados da aplicação REST de Clientes e o formulário de Solicitação de empréstimo. 
+- #### Lombok
+  - Dependência utilizada para aumentar a qualidade do código, diminuindo a quantidade de código repetitivo. 
 - #### PostgreSQL
+  - Banco de dados relacional muito versátil, ótima opção para trabalhar com dados estruturados. Foi escolhido pela praticidade do SQL e pelo modelo do projeto ser parecido com sistemas CRM.  
 - #### Swagger
+  - Foi implementado como um auxílio à TQI para descoberta das rotas da aplicação.
+- #### Thymeleaf
+  - Motor de renderização de páginas server-side, utilizado para carregamento do HTML de forma dinâmica.  
 - #### Bootstrap 5
-- #### InputMask
+  - Biblioteca utilizada para estilização e responsividade das páginas. 
+- #### Input Mask
+  - Biblioteca para formatação dos campos do formulário, aplicando máscaras nos inputs. 
 
 ---
